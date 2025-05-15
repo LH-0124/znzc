@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>语音康复训练系统</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>面向听力障碍人群的语音识别康复系统</h1>
+        <div class="header-images">
+            <img src="/images/ear-icon.png" alt="听力图标">
+            <img src="/images/sound-wave.png" alt="声波图示">
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="control-panel">
+            <button class="main-btn" id="playBtn">
+                <img src="/images/play-icon.png" alt="播放">
+                播放训练音频
+            </button>
+            <button class="main-btn" id="recordBtn">
+                <img src="/images/mic-icon.png" alt="麦克风">
+                开始录音练习
+            </button>
+        </div>
+
+        <div class="result-container">
+            <div class="result-card">
+                <h2>📝 您的语音识别结果</h2>
+                <div id="speechResult" class="result-box"></div>
+            </div>
+            
+            <div class="result-card">
+                <h2>✅ 准确度分析报告</h2>
+                <div id="accuracyResult" class="result-box">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p class="accuracy-value">0%</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

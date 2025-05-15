@@ -1,0 +1,234 @@
+/* ===== 基础重置 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 确保元素尺寸计算包含padding */
+    font-family: 'Noto Sans SC', sans-serif; /* 中文字体兼容 */
+}
+
+html {
+    font-size: 16px; /* 基准字体大小 */
+    scroll-behavior: smooth; /* 平滑滚动 */
+}
+
+/* ===== 全局配色方案 ===== */
+:root {
+    --primary-blue: #2A5CAA;    /* 主医疗蓝 */
+    --secondary-blue: #87CEEB;  /* 辅助天蓝 */
+    --success-green: #4CAF50;   /* 正确指示色 */
+    --warning-orange: #FFA500;  /* 警告色 */
+    --error-red: #FF5252;       /* 错误提示色 */
+    --text-dark: #333;          /* 主文字色 */
+    --text-light: #FFF;         /* 浅色文字 */
+    --bg-light: #F8F9FA;        /* 浅灰背景 */
+}
+
+/* ===== 主体结构 ===== */
+body {
+    background: var(--bg-light); /* 取消背景图后的纯色背景 */
+    min-height: 100vh;          /* 确保撑满屏幕高度 */
+    display: flex;
+    flex-direction: column;     /* 垂直布局 */
+}
+
+/* ===== 头部样式 ===== */
+header {
+    background: var(--primary-blue);
+    color: var(--text-light);
+    padding: 2.5rem 1rem;       /* 响应式内边距 */
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    
+    /* 标题文字样式 */
+    h1 {
+        font-size: 2.4rem;
+        margin-bottom: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 1px;    /* 增加字母间距 */
+    }
+    
+    /* 图标容器 */
+    .header-images {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1.5rem;
+        
+        img {
+            width: 70px;
+            height: 70px;
+            filter: brightness(0) invert(1); /* 图标反白处理 */
+            transition: transform 0.3s ease; /* 悬停动画 */
+            
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+/* ===== 主内容区 ===== */
+.container {
+    width: 100%;
+    max-width: 1200px;          /* 限制最大宽度 */
+    margin: 2rem auto;
+    padding: 0 20px;
+    flex: 1;                    /* 撑满剩余空间 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    /* 垂直居中关键设置 */
+}
+
+/* ===== 控制按钮组 ===== */
+.control-panel {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 3rem 0;
+    flex-wrap: wrap;            /* 小屏幕换行 */
+
+    .main-btn {
+        padding: 1.8rem 3.5rem; /* 放大按钮尺寸 */
+        font-size: 1.3rem;
+        background: var(--primary-blue);
+        color: var(--text-light);
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 平滑动画 */
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 4px 15px rgba(42,92,170,0.3);
+        
+        /* 悬停效果 */
+        &:hover {
+            background: darken(var(--primary-blue), 10%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(42,92,170,0.4);
+        }
+        
+        /* 按钮图标 */
+        img {
+            width: 32px;
+            height: 32px;
+            filter: brightness(0) invert(1);
+        }
+        
+        /* 禁用状态 */
+        &[disabled] {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    }
+}
+
+/* ===== 结果展示区 ===== */
+.result-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* 响应式网格 */
+    gap: 2.5rem;
+    margin-top: 3rem;
+    
+    .result-card {
+        background: var(--text-light);
+        border-radius: 15px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+        
+        h2 {
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            
+            &::before {
+                content: '';
+                width: 8px;
+                height: 25px;
+                background: var(--primary-blue);
+                border-radius: 4px;
+            }
+        }
+        
+        .result-box {
+            min-height: 220px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 2rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            
+            /* 空状态提示 */
+            .empty-tip {
+                color: var(--error-red);
+                text-align: center;
+                opacity: 0.8;
+            }
+        }
+    }
+}
+
+/* ===== 进度条组件 ===== */
+.progress-bar {
+    width: 100%;
+    height: 25px;               /* 加粗进度条 */
+    background: #E0E0E0;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    margin: 2.5rem 0;
+    
+    .progress-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 12px;
+        transition: width 0.8s ease, background 0.3s ease;
+    }
+    
+    /* 动态数值标签 */
+    &::after {
+        content: attr(data-progress);
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
+        font-weight: bold;
+    }
+}
+
+.accuracy-value {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .control-panel {
+        gap: 1.5rem;
+        margin: 2rem 0;
+        
+        .main-btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+        }
+    }
+    
+    .result-container {
+        grid-template-columns: 1fr;
+    }
+}
