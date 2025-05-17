@@ -33,7 +33,7 @@ const initQuestion = () => {
 const initSpeechRecognition = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-        showErrorToast('当前浏览器不支持语音识别，请使用最新版Chrome');
+        showErrorToast('当前浏览器不支持语音识别');
         return;
     }
 
@@ -125,19 +125,27 @@ const updateUIState = (state) => {
         btn.innerHTML = '<img src="/images/stop-icon.png" alt="停止">识别中...';
         btn.style.backgroundColor = '#d32f2f';
     } else {
-        btn.innerHTML = '<img src="/images/mic-icon.png" alt="麦克风">开始录音';
+        btn.innerHTML = '<img src="/images/mic-icon.png" alt="麦克风">开始录音练习';
         btn.style.backgroundColor = '#2A5CAA';
     }
 };
 
 const updateResultDisplay = (final, interim) => {
-    const box = document.getElementById('realTimeResult');
-    box.innerHTML = `
-        <div class="real-time-content">
-            ${final ? `<div class="final">${final}</div>` : ''}
-            ${interim ? `<div class="interim">${interim}</div>` : ''}
-        </div>
-    `;
+  const box = document.getElementById('realTimeResult');
+  
+  // 添加卡片动画
+  box.parentElement.classList.add('result-card-enter');
+  setTimeout(() => {
+    box.parentElement.classList.remove('result-card-enter');
+  }, 300);
+
+  // 动态生成内容
+  box.innerHTML = `
+    <div class="real-time-content">
+      ${final ? `<div class="final">${final}</div>` : ''}
+      ${interim ? `<div class="interim">${interim}</div>` : ''}
+    </div>
+  `;
 };
 // 结果显示函数修改
 const showFinalResult = (userInput, accuracy) => {
@@ -181,10 +189,17 @@ const showErrorToast = (msg) => {
     setTimeout(() => toast.style.display = 'none', 3000);
 };
 
-// 播放音频
+// 修改播放按钮事件监听
 document.getElementById('playBtn').addEventListener('click', () => {
-  if (!currentQuestion) return;
+  // 每次点击都随机选择新题目
+  const randomIndex = Math.floor(Math.random() * questionBank.length);
+  currentQuestion = questionBank[randomIndex];
   
+  // 更新正确答案显示（保持隐藏）
+  document.getElementById('correctAnswerText').textContent = currentQuestion.answer;
+  document.getElementById('correctAnswerText').style.opacity = 0;
+
+  // 播放音频
   const audio = new Audio(currentQuestion.audio);
   audio.play().catch(err => {
     console.error('播放失败:', err);

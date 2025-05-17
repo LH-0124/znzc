@@ -274,3 +274,78 @@ header {
   flex: 1;
   word-break: break-all;
 }
+
+/* 动态卡片效果 */
+.result-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.result-card-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.result-card-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease-out;
+}
+
+/* 实时识别动画 */
+.real-time-content {
+  position: relative;
+  min-height: 80px;
+}
+
+.final {
+  font-size: 1.4rem;
+  color: var(--primary-blue);
+  animation: textScale 0.5s ease;
+}
+
+.interim {
+  color: #666;
+  opacity: 0.8;
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes textScale {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 0.8; }
+}
+
+/* 进度条动效 */
+.progress-fill {
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              background-color 0.5s ease;
+}
+
+/* 按钮交互优化 */
+.main-btn {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255,255,255,0.1);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: transform 0.6s ease;
+}
+
+.main-btn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+}
