@@ -19,7 +19,7 @@ const questionBank = [
     audio: "/audio/3.mp3",
     answer: "浙江省的省会是杭州市，杭州最有名的景点是西湖",
     difficulty: 1
-  }
+  },
    {
     audio: "/audio/4.mp3",
     answer: "生物医学工程专业在未来有着非常美好的前景",
@@ -34,7 +34,7 @@ const questionBank = [
     audio: "/audio/6.mp3",
     answer: "爷爷，我回来了，好久不见我好想你呀",
     difficulty: 1
-  }
+  },
   {
     audio: "/audio/7.mp3",
     answer: "过了很久终于我愿抬头看，你就在对岸走的好慢",
