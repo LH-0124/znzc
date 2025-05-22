@@ -198,14 +198,24 @@ document.getElementById('playBtn').addEventListener('click', () => {
 });
 
 // 点击录音按钮
-document.getElementById('recordBtn')?.addEventListener('click', () => {
+// 修改录音按钮点击事件
+document.getElementById('recordBtn').addEventListener('click', () => {
     if (!isRecognizing) {
         startRecognition();
     } else {
-        recognition?.stop();
+        // 增强停止处理
+        recognition.stop();
+        recognition.onend = null; // 立即停止回调
+        isRecognizing = false;
+        updateUIState('ready');
+        
+        // 强制显示结果
+        if (finalTranscript) {
+            const accuracy = calculateAccuracy(finalTranscript, currentQuestion.answer);
+            showFinalResult(finalTranscript, accuracy);
+        }
     }
 });
-
 // 页面加载初始化
 window.addEventListener('load', () => {
   initQuestion(); // 初始化第一题
